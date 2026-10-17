@@ -20,3 +20,4 @@
 - Preview SEO metadata lives in `src/lib/seo.ts`; retain noindex/nofollow until production release is explicitly scoped. Route metadata contract: `src/routes/README.md`.
 - Site origin/indexability and crawl endpoint contracts: `src/lib/site.ts`, `src/server.ts`, `.env.example`, `src/routes/README.md`. Do not populate production URLs from request Host or enable indexing to make a local sitemap nonempty.
 - Cloudflare/专用 Ubuntu CI 合同：`docs/deployment.md`。保持 Worker 独立命名、noindex、构建前 origin 配置；仅私有 main 分支触发自托管 runner，不向 PR 暴露部署凭据。
+- Browser brand assets: `public/favicon.svg` and ICO fallback; keep geometry consistent with the header logo and follow `DESIGN.md` browser identity contract.

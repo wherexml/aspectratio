@@ -18,3 +18,6 @@ Theme follow-up: light stage and result surfaces use light neutral tokens with f
 Video clarity: retain realistic monitor/phone shells with narrow 5px bezels, metallic monitor stand, phone camera island and home indicator. Screen aperture preserves the exact target ratio independently of the shell. Video stage stays 304px high; monitor screen is up to 400px wide and phone screen 252px tall. No exterior crop ghosts. Empty screen areas carry labels; exact-fit messaging uses rational equality. Evidence: `verification/device-preview/README.md`.
 
 Copy action uses theme foreground as its background and theme background as its text/icon color for strong contrast in both themes. This neutral control replaces the earlier solid orange Copy button. Browser evidence: `verification/photo-flow/report.html`.
+
+## Browser identity
+`public/favicon.svg` reuses the header's exact overlapping horizontal/vertical frame geometry and brand #D96A1B. Its neutral outline follows browser light/dark appearance. `public/favicon.ico` contains 16/32/48/64px raster fallbacks. Root head links use a versioned URL to refresh the old Lovable icon cache; all routes inherit this identity. Validate both public assets and all route head links after deploying.
