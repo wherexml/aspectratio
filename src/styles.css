@@ -1,0 +1,252 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-stage: var(--stage);
+  --color-stage-line: var(--stage-line);
+  --color-signal: var(--signal);
+  --color-signal-foreground: var(--signal-foreground);
+  --color-frame: var(--frame);
+  --color-frame-fill: var(--frame-fill);
+}
+
+/* One brand orange across themes; translucent surfaces derive from it. */
+:root {
+  --brand: #D96A1B;
+  --radius: 0.875rem;
+  --background: oklch(0.972 0.006 240);
+  --foreground: oklch(0.22 0.035 258);
+  --card: oklch(0.995 0.002 240);
+  --card-foreground: var(--foreground);
+  --popover: var(--card);
+  --popover-foreground: var(--foreground);
+  --primary: var(--brand);
+  --primary-foreground: #182332;
+  --secondary: oklch(0.93 0.012 245);
+  --secondary-foreground: var(--foreground);
+  --muted: oklch(0.94 0.008 245);
+  --muted-foreground: oklch(0.46 0.03 255);
+  --accent: color-mix(in srgb, var(--brand) 14%, var(--card));
+  --accent-foreground: var(--foreground);
+  --destructive: oklch(0.52 0.2 25);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.88 0.012 248);
+  --input: oklch(0.84 0.015 248);
+  --ring: var(--brand);
+  --stage: oklch(0.955 0.008 245);
+  --stage-line: oklch(0.82 0.015 245);
+  --frame: var(--brand);
+  --frame-fill: color-mix(in srgb, var(--brand) 14%, transparent);
+  --signal: var(--brand);
+  --signal-foreground: oklch(0.22 0.035 258);
+}
+
+/* Dark surfaces retain the identical brand color. */
+.dark {
+  --background: oklch(0.16 0.018 255);
+  --foreground: oklch(0.94 0.01 240);
+  --card: oklch(0.205 0.022 255);
+  --card-foreground: var(--foreground);
+  --popover: var(--card);
+  --popover-foreground: var(--foreground);
+  --primary: var(--brand);
+  --primary-foreground: #182332;
+  --secondary: oklch(0.26 0.022 255);
+  --secondary-foreground: var(--foreground);
+  --muted: oklch(0.24 0.02 255);
+  --muted-foreground: oklch(0.72 0.02 245);
+  --accent: color-mix(in srgb, var(--brand) 14%, var(--card));
+  --accent-foreground: var(--foreground);
+  --destructive: oklch(0.72 0.17 25);
+  --destructive-foreground: oklch(0.16 0.02 25);
+  --border: oklch(0.3 0.02 255);
+  --input: oklch(0.38 0.022 255);
+  --ring: var(--brand);
+  --stage: oklch(0.11 0.015 255);
+  --stage-line: oklch(0.3 0.025 255);
+  --frame: var(--brand);
+  --frame-fill: color-mix(in srgb, var(--brand) 14%, transparent);
+  --signal: var(--brand);
+  --signal-foreground: oklch(0.16 0.02 255);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { color-scheme: light; }
+  html.dark { color-scheme: dark; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+}
+
+@utility num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+@utility field {
+  width: 100%;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-input);
+  background: var(--color-card);
+  padding: 0.7rem 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  &:hover { border-color: var(--color-muted-foreground); }
+  &:focus-visible {
+    outline: none;
+    border-color: var(--color-ring);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-ring) 25%, transparent);
+  }
+  &[aria-invalid="true"] { border-color: var(--color-destructive); }
+}
+
+@utility seg {
+  display: inline-flex;
+  padding: 3px;
+  gap: 2px;
+  border-radius: 999px;
+  background: var(--color-secondary);
+  & > button {
+    border-radius: 999px;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-muted-foreground);
+    transition: background 0.15s, color 0.15s;
+  }
+  & > button:hover { color: var(--color-foreground); }
+  & > button[aria-pressed="true"], & > button[aria-checked="true"], & > button[aria-selected="true"] {
+    background: var(--color-foreground);
+    color: var(--color-background);
+  }
+}
+
+@utility stage-grid {
+  background-color: var(--color-stage);
+  background-image: radial-gradient(var(--color-stage-line) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+/* Stable calculator geometry: mode changes never resize the preview stage. */
+.canvas-viewport { height: 240px; }
+.mode-fields { display: flow-root; min-height: 400px; animation: mode-reveal 140ms ease-out; }
+.calculator-result { min-height: 240px; }
+.preset-strip { display: grid; grid-template-columns: repeat(9,minmax(56px,1fr)); overflow-x:auto; gap:4px; padding-bottom:6px; }
+.calculator-layout { align-items: start; }
+.media-numeric { max-width:640px; margin-inline:auto; }
+.seg button { transition: background-color 140ms ease, color 140ms ease, box-shadow 140ms ease; }
+@keyframes mode-reveal { from { opacity:.65; } to { opacity:1; } }
+@media(min-width:640px) { .canvas-viewport { height:380px; } }
+@media(min-width:1024px) { .canvas-viewport { height:460px; } .calculator-canvas { position:sticky; top:24px; } }
+@media(prefers-reduced-motion:reduce) { .mode-fields { animation:none; } }
+.calculator-controls, .calculator-canvas { min-width:0; }
+.calculator-canvas > p { min-height:52px; }
+@media(min-width:1024px) { .calculator-canvas > p { min-height:40px; } }
+
+/* Media preview: neutral stage, crisp frame, brand only for accents. */
+.mp-card { display:flex; flex-direction:column; min-width:0; border-radius:var(--radius-lg); background:var(--color-card); box-shadow:0 0 0 1px color-mix(in srgb, var(--color-foreground) 8%, transparent), 0 1px 2px color-mix(in srgb, var(--color-foreground) 5%, transparent); overflow:hidden; }
+.mp-card-head { display:flex; align-items:center; justify-content:space-between; gap:.5rem; padding:.75rem .9rem .6rem; }
+.mp-chip { display:inline-flex; align-items:center; gap:.35rem; font-size:.72rem; color:var(--color-muted-foreground); }
+.mp-chip::before { content:""; width:5px; height:5px; border-radius:999px; background:var(--brand); }
+.mp-stage { position:relative; display:flex; height:16rem; align-items:center; justify-content:center; overflow:hidden; padding:0 .9rem; border-block:1px solid color-mix(in srgb, var(--color-foreground) 7%, transparent); background-color:color-mix(in srgb, var(--color-foreground) 3%, var(--color-card)); background-image:radial-gradient(color-mix(in srgb, var(--color-foreground) 13%, transparent) 1px, transparent 1.2px); background-size:16px 16px; background-position:center; }
+.mp-device { position:relative; display:flex; }
+.mp-frame { position:relative; flex:none; }
+.mp-screen { position:absolute; inset:0; overflow:hidden; border-radius:3px; background-color:color-mix(in srgb, var(--color-foreground) 5%, var(--color-card)); background-image:repeating-linear-gradient(135deg, color-mix(in srgb, var(--color-foreground) 8%, transparent) 0 1px, transparent 1px 7px); box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--color-foreground) 55%, transparent); }
+.mp-source { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); display:flex; align-items:center; justify-content:center; background:color-mix(in srgb, var(--brand) 9%, var(--color-card)); box-shadow:inset 0 0 0 1.5px color-mix(in srgb, var(--brand) 75%, transparent); }
+.mp-source svg { position:absolute; inset:0; width:100%; height:100%; fill:none; }
+.mp-source path { vector-effect:non-scaling-stroke; }
+.mp-thirds { stroke:color-mix(in srgb, var(--color-foreground) 14%, transparent); stroke-width:1; stroke-dasharray:2 3; }
+.mp-diag { stroke:color-mix(in srgb, var(--brand) 40%, transparent); stroke-width:1; }
+.mp-source span { position:relative; padding:.15rem .45rem; border-radius:999px; background:var(--color-card); font-size:.68rem; font-weight:600; letter-spacing:.02em; color:var(--color-foreground); box-shadow:0 0 0 1px color-mix(in srgb, var(--color-foreground) 12%, transparent); white-space:nowrap; }
+.mp-ghost { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:2; pointer-events:none; border:1px dashed color-mix(in srgb, var(--brand) 70%, transparent); background:color-mix(in srgb, var(--brand) 5%, transparent); border-radius:2px; }
+.mp-device--monitor { flex-direction:column; align-items:center; }
+.mp-device--monitor .mp-frame { box-sizing:content-box; padding:6px; border-radius:8px; background:var(--color-card); box-shadow:0 0 0 1px color-mix(in srgb, var(--color-foreground) 22%, transparent), 0 6px 16px -10px color-mix(in srgb, var(--color-foreground) 40%, transparent); }
+.mp-device--monitor .mp-screen, .mp-device--phone .mp-screen { inset:6px; }
+.mp-device--monitor::after { content:""; width:76px; height:20px; flex:none; background:
+    linear-gradient(color-mix(in srgb, var(--color-foreground) 22%, transparent),color-mix(in srgb, var(--color-foreground) 22%, transparent)) center top/14px 16px no-repeat,
+    linear-gradient(color-mix(in srgb, var(--color-foreground) 22%, transparent),color-mix(in srgb, var(--color-foreground) 22%, transparent)) center bottom/76px 4px no-repeat;
+  border-radius:0 0 3px 3px; }
+.mp-device--phone .mp-frame { box-sizing:content-box; padding:6px; border-radius:22px; background:var(--color-card); box-shadow:0 0 0 1px color-mix(in srgb, var(--color-foreground) 22%, transparent), 0 6px 16px -10px color-mix(in srgb, var(--color-foreground) 40%, transparent); }
+.mp-device--phone .mp-screen { border-radius:16px; }
+.mp-device--phone .mp-frame::before { content:""; position:absolute; left:50%; top:12px; z-index:4; width:30px; height:5px; transform:translateX(-50%); border-radius:999px; background:color-mix(in srgb, var(--color-foreground) 70%, var(--color-card)); }
+.mp-device--phone .mp-screen { box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--brand) 45%, transparent); }
+.mp-readout { display:flex; flex-direction:column; gap:.5rem; padding:.7rem .9rem .85rem; min-height:4.25rem; }
+.mp-meter { height:3px; border-radius:999px; background:color-mix(in srgb, var(--color-foreground) 9%, transparent); overflow:hidden; }
+.mp-meter span { display:block; height:100%; border-radius:inherit; background:var(--brand); transition:width 160ms ease; }
+.mp-drop { border-radius:var(--radius-lg); border:1px dashed color-mix(in srgb, var(--color-foreground) 22%, transparent); background:color-mix(in srgb, var(--color-foreground) 2%, var(--color-card)); padding:1.25rem; transition:border-color 140ms ease; }
+.mp-drop:hover, .mp-drop:focus-within { border-color:color-mix(in srgb, var(--brand) 70%, transparent); }
+@media(prefers-reduced-motion:reduce) { .mp-meter span { transition:none; } }
+
+/* Reserve bezel width inside narrow preview stages. */
+.mp-device--monitor, .mp-device--phone { max-width:calc(100% - 12px) !important; }
+
+/* Device shells stay separate from the exact-ratio screen aperture. */
+.mp-card--video .mp-stage { height:19rem; background:linear-gradient(180deg,var(--color-card),var(--color-muted)); }
+.mp-card--video .mp-device { max-width:calc(100% - 10px) !important; }
+.mp-card--video .mp-frame { box-sizing:content-box; padding:5px; background:#20252d; box-shadow:0 0 0 1px #6c737e,0 2px 0 2px #a3a8af,0 14px 22px -16px #0009; }
+.mp-card--video .mp-screen { inset:5px; box-shadow:none; }
+.mp-card--video .mp-device--monitor .mp-frame { border-radius:9px; }
+.mp-card--video .mp-device--monitor .mp-screen { border-radius:4px; }
+.mp-card--video .mp-device--monitor::after { width:112px; height:31px; background:linear-gradient(90deg,#858d98,#c9cdd3 48%,#929aa5) center top/24px 27px no-repeat,linear-gradient(180deg,#b8bec7,#7e8794) center bottom/112px 5px no-repeat; border-radius:0 0 4px 4px; }
+.mp-card--video .mp-device--monitor .mp-frame::before { content:""; position:absolute; top:1px; left:50%; width:3px; height:3px; border-radius:50%; background:#080c12; }
+.mp-card--video .mp-device--phone .mp-frame { border-radius:25px; }
+.mp-card--video .mp-device--phone .mp-screen { border-radius:20px; }
+.mp-card--video .mp-device--phone .mp-frame::before { top:10px; width:32px; height:8px; background:#15191f; box-shadow:inset -5px 0 0 #29313c; }
+.mp-card--video .mp-device--phone .mp-frame::after { content:""; position:absolute; right:-3px; top:58px; height:25px; width:2px; border-radius:2px; background:#757e8a; }
+.mp-card--video .mp-device--phone .mp-screen::after { content:""; position:absolute; bottom:5px; left:35%; width:30%; height:3px; border-radius:4px; background:#28313e; opacity:.65; pointer-events:none; }
+.mp-empty { position:absolute; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+.mp-empty span { font-size:10px; color:var(--color-muted-foreground); text-align:center; padding:3px; background:var(--color-card); border-radius:3px; }
+.mp-readout { min-height:5.5rem; }
+
+/* Same neutral workspace and visible target boundary across all image formats. */
+.mp-card--image .mp-stage { background:var(--color-muted); }
+.mp-card--image .mp-frame { border-radius:4px; box-shadow:0 0 0 1px var(--color-muted-foreground),0 3px 8px -5px color-mix(in srgb,var(--color-foreground) 30%,transparent); }
+.mp-card--image .mp-screen { border-radius:4px; }
+.calculator-nav a { min-height:44px; }
+.calculator-nav a:hover { background:var(--color-accent); }
