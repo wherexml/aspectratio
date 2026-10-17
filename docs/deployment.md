@@ -35,3 +35,5 @@ GitHub Token 只在部署步骤注入。Cloudflare token 授予指定账号 Work
 ## 运行条件与回滚
 
 Mac 与 OrbStack Ubuntu 必须运行并联网，否则 GitHub 任务排队。Cloudflare 已部署网站不依赖本机持续在线。流水线串行部署，不中断正在部署的任务。回滚优先使用 Cloudflare Worker 既有版本回滚，或通过 revert commit 重新部署；不要改写已推送历史。
+
+HTTP 验收使用明确的 `AspectRatioCanvas-DeploymentCheck/1.0` User-Agent 和 15 秒请求超时。公网 Cloudflare 对 Python 默认 User-Agent 返回过 403/1010；浏览器与明确标识的检查器均能访问，不需关闭安全防护。
