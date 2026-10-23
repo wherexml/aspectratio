@@ -19,5 +19,9 @@
 
 - Preview SEO metadata lives in `src/lib/seo.ts`; retain noindex/nofollow until production release is explicitly scoped. Route metadata contract: `src/routes/README.md`.
 - Site origin/indexability and crawl endpoint contracts: `src/lib/site.ts`, `src/server.ts`, `.env.example`, `src/routes/README.md`. Do not populate production URLs from request Host or enable indexing to make a local sitemap nonempty.
-- 部署边界及 CI/CD 移除状态：见 `docs/deployment.md`；部署需明确授权。
+- Deployment boundaries and removed CI/CD status: see `docs/deployment.md`. Deployment requires explicit authorization.
 - Browser brand assets: `public/favicon.svg` and ICO fallback; keep geometry consistent with the header logo and follow `DESIGN.md` browser identity contract.
+
+## Language policy
+
+Use English for all new or modified product content, documentation, code comments, commit messages, and GitHub issues, pull requests and release notes. Update older non-English documentation incrementally when relevant. Preserve published commit history; do not rewrite existing commits for translation. Keep the root README concise and product-focused, following the Voicemore pattern: centered identity, clear value statement, practical features, usage, source build, privacy and limitations.

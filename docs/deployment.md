@@ -1,4 +1,60 @@
-# Cloudflare 部署边界
+# Cloudflare deployment
+
+## Production configuration
+
+- Canonical origin: `https://imageaspectratio.com`.
+- Worker: `aspect-ratio-canvas`, with apex and `www.imageaspectratio.com` Custom Domains.
+- Public build settings: `.env.production` sets `VITE_SITE_URL` and `VITE_SITE_INDEXABLE=true`. Development remains noindex by default.
+- Eight pages share the production origin in canonical, Open Graph, JSON-LD and sitemap. `public/llms.txt` uses the same origin.
+- The server redirects explicitly listed production aliases (www, legacy workers.dev, and HTTP apex) to HTTPS apex with status 308, preserving path and query. Local and unknown hosts are not redirected. Existing trailing-slash normalization and 404 handling remain active. Workers Assets serves static files directly.
+- `scripts/prepare-worker.mjs` declares the Worker account, name, compatibility date and Custom Domains. The local `dev.host` prevents Wrangler from inferring a public upstream and producing a redirect loop.
+- Verified active version: `3579388d-8d51-4550-b42e-e1ecc9669255`, serving 100% of traffic on 2026-10-23. Initial domain migration: `badf7b79-3049-4b12-9b08-e37f5f8e608f`; pre-migration: `088d17ba-1c78-42ec-b073-4941aa79c7b4`.
+- Deployment is manual. GitHub CI/CD remains removed; pushing a commit does not deploy it.
+
+## Build and verify from a clean checkout
+
+Use the committed `bun.lock`; do not depend on an existing node_modules directory or private environment files. Verified toolchain: Bun 1.3.14 and Node.js 22.23.1.
+
+```sh
+bun install --frozen-lockfile
+bunx tsc --noEmit
+npm run build
+node scripts/prepare-worker.mjs
+npm run preview
+# In another terminal:
+python3 scripts/verify-http.py http://127.0.0.1:18767 https://imageaspectratio.com indexable
+```
+
+The production build is a TanStack Start SSR Worker with Static Assets. Do not upload only the static directory. Build settings contain no credentials. Use existing authorized Cloudflare credentials; never commit or log secrets.
+
+Only after deployment authorization:
+
+```sh
+npm exec --yes --package=wrangler@4.151.1 -- wrangler deploy --config .output/server/wrangler.json
+python3 scripts/verify-http.py https://imageaspectratio.com https://imageaspectratio.com indexable
+```
+
+Verify alias redirects, deep links, query preservation, assets and relevant browser workflows after publishing. The HTTP checker uses an explicit deployment-check User-Agent and a timeout. Keep security protections enabled.
+
+DNS, certificates, Custom Domain bindings and Search Console verification are external account state. A Git clone reproduces application configuration, not ownership of these resources. The preparation script declares the domain routes; a new deployment still needs account permissions.
+
+## Search Console and evidence
+
+The Domain property was verified using DNS TXT. The sitemap was read successfully with eight discovered pages. The homepage and Image, Video and Ultrawide pages all received successful indexing requests on 2026-10-23. Requests are not proof of indexing. Keep the ownership TXT record and verify actual indexing separately.
+
+Local evidence directories (not build inputs or files shipped in this repository):
+
+- `verification/domain-release/`: initial domain migration, redirects and browser acceptance.
+- `verification/gsc-launch/`: final repository links, publication, ownership verification and four indexing requests.
+- `verification/release-reproduction/`: clean-checkout source verification.
+
+## Rollback
+
+Record the active version before any deployment. A Worker version rollback does not revert independent DNS or Custom Domain bindings. The pre-migration version uses workers.dev canonical URLs, so rolling back that far also reverts the SEO migration. Preserve later changes and unrelated resources. Git revert changes source only; it does not deploy. Never rewrite published Git history because the repository is connected to Lovable.
+
+## Historical implementation notes
+
+The notes below describe earlier stages and may contain superseded preview settings, page counts, repository names and GSC status. The current sections above take precedence. Older documents are being updated incrementally.
 
 ## 当前状态（2026-10-23）
 

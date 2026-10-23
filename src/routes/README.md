@@ -87,3 +87,7 @@ Calculate size / Aspect ratio replace Find size / Find ratio labels. Homepage ex
 This supersedes earlier crawl-endpoint documentation: robots announces a configured origin sitemap independently of noindex. Preview sitemap stays empty; indexable sitemap contains all seven routes. Local verification: verification/seo-entities/README.md. No deployment.
 
 Homepage copy refinement: title is `Aspect Ratio Calculator — Image & Video Dimensions`; the lead begins with Calculate image and video dimensions. Instructions name the Calculate size, Aspect ratio and Resize modes while describing image/video tasks; related links include the full calculator name. Local evidence: `verification/seo-keyword-copy/`. Counts use rendered body text, not plugin scores; no indexing or calculation logic changes.
+
+## Production domain migration (2026-10-23)
+
+Production origin is `https://imageaspectratio.com`; the eight-page sitemap includes Contact. SEO URLs and llms.txt use this origin. The server redirects only explicitly listed production aliases (www, legacy workers.dev and HTTP apex) to HTTPS apex with 308, preserving path and query. Local and unknown hosts stay local. Workers Assets serves static files directly. This supersedes earlier notes prohibiting cross-domain redirects. See `../../docs/deployment.md` for deployment and acceptance details.

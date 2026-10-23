@@ -49,6 +49,15 @@ export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
       const url = new URL(request.url);
+      // Only the explicitly published hosts redirect; local/preview stays local.
+      const publishedHosts = ["imageaspectratio.com", "www.imageaspectratio.com", "aspect-ratio-canvas.geekmooc.workers.dev"];
+      if (site.indexable && site.origin === "https://imageaspectratio.com" &&
+          publishedHosts.includes(url.hostname) && url.origin !== site.origin) {
+        return new Response(null, {
+          status: 308,
+          headers: { Location: `${site.origin}${url.pathname}${url.search}` },
+        });
+      }
       const isRead = request.method === "GET" || request.method === "HEAD";
       if (isRead && (url.pathname === "/sitemap.xml" || url.pathname === "/robots.txt")) {
         const sitemap = url.pathname === "/sitemap.xml";
