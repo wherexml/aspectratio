@@ -1,6 +1,6 @@
 # Aspect Ratio Calculator
 
-[Live site](https://aspect-ratio-canvas.geekmooc.workers.dev/) · [Report an issue](https://github.com/wherexml/aspect-ratio-canvas.geekmooc.workers.dev/issues) · [MIT license](LICENSE)
+[Live site](https://imageaspectratio.com/) · [Report an issue](https://github.com/wherexml/imageaspectratio.com/issues) · [MIT license](LICENSE)
 
 Calculate image, video and ultrawide proportions with exact fractions. Find a missing dimension, reduce a ratio, and preview Fit/Fill. This app does not export resized images or transcode video. Maintained by [wherexml](https://github.com/wherexml).
 
@@ -97,4 +97,4 @@ Copy `.env.example` to `.env.local` only when configuring a confirmed site origi
 
 ## Deployment
 
-Cloudflare Workers SSR 部署边界见 [部署说明](docs/deployment.md)。CI/CD 已移除，push 不再自动部署；当前保留 noindex，自定义域名待配置。
+正式站点：[imageaspectratio.com](https://imageaspectratio.com)。Cloudflare Workers SSR 手动发布，CI/CD 保持移除；生产开放索引，开发默认 noindex。www 与旧 workers.dev 的页面永久跳转到正式主域。当前 8 个页面与回滚流程见 [部署说明](docs/deployment.md)，本次实际验收见 `verification/domain-release/README.md`。
