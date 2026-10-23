@@ -37,6 +37,8 @@ ci-results/
 .env
 .env.*
 !.env.example
+# Public build settings only; never put credentials in this file.
+!.env.production
 
 # Local sprint planning documents
 **/doocs/sprint/

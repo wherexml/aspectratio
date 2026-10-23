@@ -10,6 +10,8 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
+import { CONTENT_UPDATED, MAINTAINER, REPOSITORY_URL } from "@/lib/seo";
+
 import appCss from "../styles.css?url";
 import { themeInitScript } from "../components/ThemeControl";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -123,6 +125,15 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
+      <footer className="mx-auto flex max-w-6xl flex-wrap gap-x-6 gap-y-3 border-t px-4 py-6 text-sm text-muted-foreground sm:px-6">
+        <Link to="/about" className="hover:text-foreground">About</Link>
+        <Link to="/contact" className="hover:text-foreground">Contact</Link>
+        <Link to="/privacy" className="hover:text-foreground">Privacy</Link>
+        <Link to="/terms" className="hover:text-foreground">Terms</Link>
+        <a href={REPOSITORY_URL} className="hover:text-foreground">Source</a>
+        <span className="byline">Maintained by <a rel="author" href={MAINTAINER.url} className="hover:text-foreground">{MAINTAINER.name}</a></span>
+        <span>Updated <time dateTime={CONTENT_UPDATED}>{CONTENT_UPDATED}</time></span>
+      </footer>
     </QueryClientProvider>
   );
 }

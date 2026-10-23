@@ -1,4 +1,21 @@
-# Welcome to your Lovable project
+# Aspect Ratio Calculator
+
+[Live site](https://aspect-ratio-canvas.geekmooc.workers.dev/) · [Report an issue](https://github.com/wherexml/aspect-ratio-canvas.geekmooc.workers.dev/issues) · [MIT license](LICENSE)
+
+Calculate image, video and ultrawide proportions with exact fractions. Find a missing dimension, reduce a ratio, and preview Fit/Fill. This app does not export resized images or transcode video. Maintained by [wherexml](https://github.com/wherexml).
+
+## Run locally
+
+```sh
+npm install
+npm run dev -- --host 127.0.0.1 --port 18786
+```
+
+`npm run build` uses the public production settings in `.env.production`. Local development defaults to noindex. Deployment is manual; no GitHub CI/CD workflow is enabled. See [deployment documentation](docs/deployment.md). Local verification artifacts referenced in historical notes are not included in this repository.
+
+## Project history and provenance
+
+### Lovable origin
 
 This project was built with [Lovable](https://lovable.dev).
 

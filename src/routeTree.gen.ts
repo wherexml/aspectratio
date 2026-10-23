@@ -10,7 +10,11 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ImageAspectRatioRouteImport } from './routes/image-aspect-ratio'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as UltrawideAspectRatioCalculatorRouteImport } from './routes/ultrawide-aspect-ratio-calculator'
 import { Route as VideoAspectRatioRouteImport } from './routes/video-aspect-ratio'
 
@@ -19,9 +23,29 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ImageAspectRatioRoute = ImageAspectRatioRouteImport.update({
   id: '/image-aspect-ratio',
   path: '/image-aspect-ratio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const UltrawideAspectRatioCalculatorRoute =
@@ -38,20 +62,32 @@ const VideoAspectRatioRoute = VideoAspectRatioRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/image-aspect-ratio': typeof ImageAspectRatioRoute
+  '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
   '/ultrawide-aspect-ratio-calculator': typeof UltrawideAspectRatioCalculatorRoute
   '/video-aspect-ratio': typeof VideoAspectRatioRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/image-aspect-ratio': typeof ImageAspectRatioRoute
+  '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
   '/ultrawide-aspect-ratio-calculator': typeof UltrawideAspectRatioCalculatorRoute
   '/video-aspect-ratio': typeof VideoAspectRatioRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/image-aspect-ratio': typeof ImageAspectRatioRoute
+  '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
   '/ultrawide-aspect-ratio-calculator': typeof UltrawideAspectRatioCalculatorRoute
   '/video-aspect-ratio': typeof VideoAspectRatioRoute
 }
@@ -59,26 +95,42 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
+    | '/contact'
     | '/image-aspect-ratio'
+    | '/privacy'
+    | '/terms'
     | '/ultrawide-aspect-ratio-calculator'
     | '/video-aspect-ratio'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
+    | '/contact'
     | '/image-aspect-ratio'
+    | '/privacy'
+    | '/terms'
     | '/ultrawide-aspect-ratio-calculator'
     | '/video-aspect-ratio'
   id:
     | '__root__'
     | '/'
+    | '/about'
+    | '/contact'
     | '/image-aspect-ratio'
+    | '/privacy'
+    | '/terms'
     | '/ultrawide-aspect-ratio-calculator'
     | '/video-aspect-ratio'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  ContactRoute: typeof ContactRoute
   ImageAspectRatioRoute: typeof ImageAspectRatioRoute
+  PrivacyRoute: typeof PrivacyRoute
+  TermsRoute: typeof TermsRoute
   UltrawideAspectRatioCalculatorRoute: typeof UltrawideAspectRatioCalculatorRoute
   VideoAspectRatioRoute: typeof VideoAspectRatioRoute
 }
@@ -92,11 +144,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/image-aspect-ratio': {
       id: '/image-aspect-ratio'
       path: '/image-aspect-ratio'
       fullPath: '/image-aspect-ratio'
       preLoaderRoute: typeof ImageAspectRatioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ultrawide-aspect-ratio-calculator': {
@@ -118,7 +198,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  ContactRoute: ContactRoute,
   ImageAspectRatioRoute: ImageAspectRatioRoute,
+  PrivacyRoute: PrivacyRoute,
+  TermsRoute: TermsRoute,
   UltrawideAspectRatioCalculatorRoute: UltrawideAspectRatioCalculatorRoute,
   VideoAspectRatioRoute: VideoAspectRatioRoute,
 }

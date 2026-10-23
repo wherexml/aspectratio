@@ -1,13 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Calculator } from "@/components/Calculator";
-import { previewSeoMeta, seoLinks } from "@/lib/seo";
-const TITLE = "Aspect Ratio Calculator — Calculate Width, Height & Ratio";
+import { previewSeoMeta, seoLinks, seoScripts } from "@/lib/seo";
+const TITLE = "Aspect Ratio Calculator — Image & Video Dimensions";
 const DESC =
-  "Find a missing width or height from any aspect ratio, or reduce pixel dimensions to an exact simplified ratio. Free, instant, works in your browser.";
+  "Calculate image and video aspect ratios from width and height, or calculate a missing dimension. Compare common ratios and scale dimensions in your browser.";
 
 export const Route = createFileRoute("/")({
   component: Calculator,
-  head: () => ({
+  head: () => ({ scripts: seoScripts(TITLE, DESC, "/"),
     meta: previewSeoMeta(TITLE, DESC, "/"),
     links: seoLinks("/"),
   }),

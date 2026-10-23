@@ -70,3 +70,20 @@ All four routes use `src/lib/seo.ts` previewSeoMeta: unique title/description pl
 - GET/HEAD known routes with trailing slashes redirect 308 to slashless paths, preserving query strings. Unknown routes retain 404. No Host-based canonical or cross-host redirect.
 - Default build targets Cloudflare. `bun run preview` uses pinned Wrangler in local mode at 127.0.0.1:18767; it does not deploy. The previous vite preview command looked for a different output layout and returned 500.
 - Evidence and repeatable HTTP checks: `verification/seo-infrastructure/`. Formal domain, indexability approval, production deployment and GSC remain separate release work.
+
+## SEO 文案与索引验收（2026-10-23）
+
+首页 Title 为 `Aspect Ratio Calculator for Images & Videos`；首句及示例突出图片和视频用途。导航采用 Image ratio / Video ratio，各工具说明和示例标题明确对应 aspect ratio 主题；计算与文件处理能力不变。
+
+当前仍为预览 noindex，开放索引未获本轮授权。现有 canonical、robots、sitemap 生成逻辑已在本地 Worker 的两种构建模式下验收；`scripts/verify-http.py` 新增 indexable 模式，默认仍为 preview。详情见 [发布说明](../../docs/deployment.md)；本机截图和 22 条 HTTP 结果保存在 `verification/seo-copy-index/`（本地验收目录，不随源码提交）。
+
+
+## Information pages and schema (2026-10-23)
+
+Added /about, /privacy and /terms, linked from the shared footer. Contact remains unset at user request. seoScripts emits one SSR JSON-LD graph per route (WebSite and WebApplication or WebPage). Identity URLs require configured origin. Site name is Aspect Ratio Calculator. No invented author, date or social profiles.
+
+Calculate size / Aspect ratio replace Find size / Find ratio labels. Homepage explains the ratio and GCD example; calculation logic is unchanged. Privacy covers local image handling, theme storage, external fonts and preview error hooks. Terms describes tool usage and output limits.
+
+This supersedes earlier crawl-endpoint documentation: robots announces a configured origin sitemap independently of noindex. Preview sitemap stays empty; indexable sitemap contains all seven routes. Local verification: verification/seo-entities/README.md. No deployment.
+
+Homepage copy refinement: title is `Aspect Ratio Calculator — Image & Video Dimensions`; the lead begins with Calculate image and video dimensions. Instructions name the Calculate size, Aspect ratio and Resize modes while describing image/video tasks; related links include the full calculator name. Local evidence: `verification/seo-keyword-copy/`. Counts use rendered body text, not plugin scores; no indexing or calculation logic changes.

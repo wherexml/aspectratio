@@ -1,4 +1,4 @@
-export const SITE_PAGES = ["/", "/image-aspect-ratio", "/video-aspect-ratio", "/ultrawide-aspect-ratio-calculator"] as const;
+export const SITE_PAGES = ["/", "/image-aspect-ratio", "/video-aspect-ratio", "/ultrawide-aspect-ratio-calculator", "/about", "/contact", "/privacy", "/terms"] as const;
 export type SitePath = typeof SITE_PAGES[number];
 export type SiteConfig = { origin: string | null; indexable: boolean };
 
@@ -31,5 +31,5 @@ export function sitemapXml(config: SiteConfig = site) {
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
 }
 export function robotsTxt(config: SiteConfig = site) {
-  return `User-agent: *\nAllow: /\n${config.indexable && config.origin ? `\nSitemap: ${config.origin}/sitemap.xml\n` : ""}`;
+  return `User-agent: *\nAllow: /\n${config.origin ? `\nSitemap: ${config.origin}/sitemap.xml\n` : ""}`;
 }

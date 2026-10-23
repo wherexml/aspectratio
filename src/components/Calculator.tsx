@@ -220,7 +220,7 @@ export function Calculator({ ultrawide = false, media }: { ultrawide?: boolean; 
             <rect x="2" y="7" width="24" height="14" rx="2" className="fill-none stroke-foreground" strokeWidth="2" />
             <rect x="9" y="3" width="10" height="22" rx="2" className="fill-primary" />
           </svg>
-          <span className="font-display text-sm font-bold tracking-tight">ratio/lab</span>
+          <span className="font-display text-sm font-bold tracking-tight">Aspect Ratio Calculator</span>
         </Link>
         <ThemeControl />
 
@@ -228,13 +228,13 @@ export function Calculator({ ultrawide = false, media }: { ultrawide?: boolean; 
 
       <main className="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
         <nav aria-label="Calculators" className="calculator-nav mt-5 grid grid-cols-4 gap-2 text-sm sm:flex sm:flex-wrap">
-          {[{to:"/",label:"All ratios",icon:Ratio}, {to:"/image-aspect-ratio",label:"Image",icon:ImageIcon}, {to:"/video-aspect-ratio",label:"Video",icon:Clapperboard}, {to:"/ultrawide-aspect-ratio-calculator",label:"Ultrawide",icon:Monitor}].map(({to,label,icon:Icon}) => <Link key={to} to={to} activeOptions={{exact:true}} activeProps={{className:"bg-accent text-accent-foreground"}} className="flex flex-col items-center justify-center gap-1.5 rounded-xl border px-2 py-2.5 font-medium sm:flex-row sm:gap-2 sm:px-4"><Icon aria-hidden="true" className="h-5 w-5 shrink-0 text-primary" strokeWidth={2} /><span>{label}</span></Link>)}
+          {[{to:"/",label:"All ratios",icon:Ratio}, {to:"/image-aspect-ratio",label:"Image ratio",icon:ImageIcon}, {to:"/video-aspect-ratio",label:"Video ratio",icon:Clapperboard}, {to:"/ultrawide-aspect-ratio-calculator",label:"Ultrawide",icon:Monitor}].map(({to,label,icon:Icon}) => <Link key={to} to={to} activeOptions={{exact:true}} activeProps={{className:"bg-accent text-accent-foreground"}} className="flex flex-col items-center justify-center gap-1.5 rounded-xl border px-2 py-2.5 font-medium sm:flex-row sm:gap-2 sm:px-4"><Icon aria-hidden="true" className="h-5 w-5 shrink-0 text-primary" strokeWidth={2} /><span>{label}</span></Link>)}
         </nav>
         <h1 className="mt-6 font-display text-[2.1rem] font-extrabold leading-[0.95] tracking-[-0.035em] sm:text-6xl">
           {ultrawide ? "Ultrawide Aspect Ratio" : media === "image" ? "Image Aspect Ratio" : media === "video" ? "Video Aspect Ratio" : "Aspect Ratio"} <span className="text-primary">Calculator</span>
         </h1>
         <p className="mt-2 max-w-xl text-sm text-muted-foreground sm:text-base">
-          {ultrawide ? "Scale using your screen’s actual ratio, or choose strict 21:9." : media === "image" ? "Choose a local image to find its dimensions and ratio, then compare Fit and Fill." : media === "video" ? "Enter video dimensions to compare Fit and Fill on a widescreen display and a vertical phone." : "Solve a missing width or height, or reduce any dimensions to their exact ratio."}
+          {ultrawide ? "Scale using your screen’s actual ratio, or choose strict 21:9." : media === "image" ? "Choose a local image to find its dimensions and ratio, then compare Fit and Fill." : media === "video" ? "Enter video dimensions to compare Fit and Fill on a widescreen display and a vertical phone." : "Aspect ratio is the relationship between width and height. Use this calculator to calculate image and video dimensions."}
         </p>
 
         {media && <MediaPreview kind={media} width={dimW} height={dimH} onDimensions={(w,h) => {resetCopy(); setDimW(w); setDimH(h); setMode("ratio");}} />}
@@ -245,8 +245,8 @@ export function Calculator({ ultrawide = false, media }: { ultrawide?: boolean; 
           <div className="calculator-controls order-2 rounded-2xl border bg-card p-4 shadow-[0_1px_0_var(--color-border),0_24px_48px_-32px_color-mix(in_oklab,var(--color-foreground)_35%,transparent)] sm:p-5 lg:order-2">
             <div className="flex flex-wrap items-center justify-between gap-2">
               {ultrawide ? <span className="text-sm font-semibold">Scale your resolution</span> : <div role="tablist" aria-label="Calculation mode" className="seg">
-                <button role="tab" aria-selected={mode === "solve"} onClick={() => { resetCopy(); setMode("solve"); }}>Find size</button>
-                <button role="tab" aria-selected={mode === "ratio"} onClick={() => { resetCopy(); setMode("ratio"); }}>Find ratio</button>
+                <button role="tab" aria-selected={mode === "solve"} onClick={() => { resetCopy(); setMode("solve"); }}>Calculate size</button>
+                <button role="tab" aria-selected={mode === "ratio"} onClick={() => { resetCopy(); setMode("ratio"); }}>Aspect ratio</button>
                 <button role="tab" aria-selected={mode === "resize"} onClick={() => { resetCopy(); setMode("resize"); }}>Resize</button>
               </div>}
               <div className="flex gap-1">
@@ -302,11 +302,11 @@ export function Calculator({ ultrawide = false, media }: { ultrawide?: boolean; 
                 </div>
                 <Field id="target" label={side === "height" ? "Target width (px)" : "Target height (px)"} value={known} onChange={touch(setKnown)} error={err(pK)} />
               </div>}
-              {mode === "ratio" && <button type="button" disabled={!pDW.ok || !pDH.ok} onClick={useRatio} className="mb-4 rounded-lg border px-3 py-2 text-sm disabled:opacity-40">Use this ratio → Find size</button>}
+              {mode === "ratio" && <button type="button" disabled={!pDW.ok || !pDH.ok} onClick={useRatio} className="mb-4 rounded-lg border px-3 py-2 text-sm disabled:opacity-40">Use this ratio → Calculate size</button>}
               </div>
             )}
 
-            {result?.kind === "solve" && !ultrawide && <button type="button" onClick={useSize} disabled={!transferable} className="mb-3 text-xs underline underline-offset-4 disabled:opacity-40">Use result → Find ratio</button>}
+            {result?.kind === "solve" && !ultrawide && <button type="button" onClick={useSize} disabled={!transferable} className="mb-3 text-xs underline underline-offset-4 disabled:opacity-40">Use result → Aspect ratio</button>}
             </div>
             {/* Result */}
             <div className="calculator-result mt-2 rounded-xl bg-stage p-4 text-foreground" aria-live="polite">
@@ -385,7 +385,12 @@ export function Calculator({ ultrawide = false, media }: { ultrawide?: boolean; 
         </section>}
         <section className="mt-14 grid gap-10 md:grid-cols-2" aria-labelledby="how">
           <div>
-            <h2 id="how" className="font-display text-2xl font-bold tracking-tight">How to use it</h2>
+            <h2 id="how" className="font-display text-2xl font-bold tracking-tight">{media === "image" ? "How to find an image aspect ratio" : media === "video" ? "How to calculate video aspect ratio" : ultrawide ? "How to calculate ultrawide aspect ratio" : "How to use the aspect ratio calculator"}</h2>
+            {!media && !ultrawide && <div className="mt-4 space-y-2 text-sm text-muted-foreground">
+              <blockquote cite="https://developer.mozilla.org/en-US/docs/Glossary/Aspect_ratio">“An aspect ratio is the proportional relationship between an element or viewport's width and height.”</blockquote>
+              <p>— <cite className="not-italic"><a className="underline underline-offset-4" href="https://developer.mozilla.org/en-US/docs/Glossary/Aspect_ratio">MDN — Aspect ratio</a></cite></p>
+              <p>Divide both dimensions by their greatest common divisor: 1920 × 1080 becomes 16:9. See <a className="underline underline-offset-4" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/ratio#common_aspect_ratios">MDN’s common aspect ratios</a> for widescreen and cinema examples.</p>
+            </div>}
             <ol className="mt-4 space-y-3 text-sm">
               {(media ? [
                 [media === "image" ? "Choose an image" : "Enter dimensions", media === "image" ? "Read a local image, or type its original width and height." : "Enter the video’s pixel width and height."],
@@ -396,9 +401,9 @@ export function Calculator({ ultrawide = false, media }: { ultrawide?: boolean; 
                 ["Scale", "Choose the side you know and enter its new size."],
                 ["Copy", "Copy the dimensions. Expand precision detail when the result is rounded."],
               ] : [
-                ["Find size", "Pick a preset or type a ratio, choose the side you know, enter it. Decimals like 2.39:1 work."],
-                ["Find ratio", "Enter dimensions, then use the exact ratio in Find size."],
-                ["Resize", "Enter original dimensions and a target width or height."],
+                ["Calculate size", "Choose an image or video ratio, then enter the width or height you know. Decimals like 2.39:1 work."],
+                ["Calculate aspect ratio", "Enter image or video dimensions in Aspect ratio, then use the result in Calculate size."],
+                ["Calculate scaled dimensions", "In Resize, enter the original image dimensions and a target width or height."],
                 ["Copy", "Copy the dimensions or ratio. Expand precision detail for exact values."],
               ]).map(([t, d], i) => (
                 <li key={t} className="flex gap-3">
@@ -407,10 +412,10 @@ export function Calculator({ ultrawide = false, media }: { ultrawide?: boolean; 
                 </li>
               ))}
             </ol>
-            <p className="mt-4 text-xs text-muted-foreground">This tool calculates numbers only — it doesn’t resize or crop files.</p>
+            <p className="mt-4 text-xs text-muted-foreground">This calculator returns dimensions and aspect ratios; it does not resize or crop files.</p>
           </div>
           <div>
-            <h2 className="font-display text-2xl font-bold tracking-tight">{ultrawide ? "Ultrawide examples" : "Examples"}</h2>
+            <h2 className="font-display text-2xl font-bold tracking-tight">{ultrawide ? "Ultrawide aspect ratio examples" : media === "image" ? "Image aspect ratio examples" : media === "video" ? "Video aspect ratio examples" : "Image and video calculator examples"}</h2>
             <ul className="mt-4 divide-y text-sm">
               {(media === "image" ? [
                 ["Photo 6000 × 4000", "3:2"], ["Portrait 3000 × 4000", "3:4"], ["Square 1080 × 1080", "1:1"], ["Portrait post 1080 × 1350", "4:5"],
@@ -423,8 +428,9 @@ export function Calculator({ ultrawide = false, media }: { ultrawide?: boolean; 
                 ["5120 × 2160 → half size", "2560 × 1080"],
                 ["Strict 21:9 at 3440 wide", "3440 × 1474 px (rounded)"],
               ] : [
-                ["16:9 at 1920 wide", "1920 × 1080"],
-                ["9:16 at 1080 wide", "1080 × 1920"],
+                ["Image 6000 × 4000", "3:2"],
+                ["Video 1920 × 1080", "16:9"],
+                ["Vertical video 1080 × 1920", "9:16"],
                 ["16:9 at 1001 wide", "1001 × 563 px (rounded)"],
                 ["3440 × 1440 ultrawide", "43:18 (not exactly 21:9)"],
                 ["2560 × 1080", "64:27"],
@@ -438,9 +444,9 @@ export function Calculator({ ultrawide = false, media }: { ultrawide?: boolean; 
           </div>
         </section>
         <nav aria-label="Related calculators" className="mt-8 flex flex-wrap gap-x-6 gap-y-3 border-t pt-5 text-sm">
-          {media ? <Link to="/" className="underline underline-offset-4">Aspect ratio calculator — find or scale dimensions</Link> : !ultrawide && <Link to="/image-aspect-ratio" className="underline underline-offset-4">Image aspect ratio — check a local photo</Link>}
-          {media !== "video" && <Link to="/video-aspect-ratio" className="underline underline-offset-4">Video aspect ratio — compare screen fit</Link>}
-          {media === "video" && <Link to="/image-aspect-ratio" className="underline underline-offset-4">Image aspect ratio — check a local photo</Link>}
+          {media ? <Link to="/" className="underline underline-offset-4">Aspect ratio calculator — find or scale dimensions</Link> : !ultrawide && <Link to="/image-aspect-ratio" className="underline underline-offset-4">Image aspect ratio calculator — check a local photo</Link>}
+          {media !== "video" && <Link to="/video-aspect-ratio" className="underline underline-offset-4">Video aspect ratio calculator — compare screen fit</Link>}
+          {media === "video" && <Link to="/image-aspect-ratio" className="underline underline-offset-4">Image aspect ratio calculator — check a local photo</Link>}
         </nav>
       </main>
     </div>

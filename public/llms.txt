@@ -1,0 +1,19 @@
+# Aspect Ratio Calculator
+
+> Calculate image, video and ultrawide aspect ratios and pixel dimensions. Free browser-based tools maintained by wherexml.
+
+## Tools
+- [Aspect ratio calculator](https://aspect-ratio-canvas.geekmooc.workers.dev/): Calculate a missing dimension, reduce width and height to a ratio, or scale dimensions.
+- [Image aspect ratio](https://aspect-ratio-canvas.geekmooc.workers.dev/image-aspect-ratio): Read dimensions from a local image and preview Fit/Fill.
+- [Video aspect ratio](https://aspect-ratio-canvas.geekmooc.workers.dev/video-aspect-ratio): Enter dimensions to compare frame fit; assumes square pixels.
+- [Ultrawide calculator](https://aspect-ratio-canvas.geekmooc.workers.dev/ultrawide-aspect-ratio-calculator): Distinguish exact pixel ratios from the 21:9 category.
+
+## About and support
+- [About](https://aspect-ratio-canvas.geekmooc.workers.dev/about): Calculation methods, scope and maintainer.
+- [Contact](https://aspect-ratio-canvas.geekmooc.workers.dev/contact): Public GitHub issue tracker.
+- [Privacy](https://aspect-ratio-canvas.geekmooc.workers.dev/privacy)
+- [Terms](https://aspect-ratio-canvas.geekmooc.workers.dev/terms)
+- [Source code](https://github.com/wherexml/aspect-ratio-canvas.geekmooc.workers.dev): MIT license.
+
+## Limitations
+Calculations use exact fractions; rounded pixel values are labeled. Fit/Fill are previews. The tool does not resize, crop, export or transcode files. Selected images are read locally in the browser. Open-source availability and indexability do not imply search engine ranking or endorsement.
