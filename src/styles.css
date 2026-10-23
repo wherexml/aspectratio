@@ -177,7 +177,8 @@
 .canvas-viewport { height: 240px; }
 .mode-fields { display: flow-root; min-height: 400px; animation: mode-reveal 140ms ease-out; }
 .calculator-result { min-height: 240px; }
-.preset-strip { display: grid; grid-template-columns: repeat(9,minmax(56px,1fr)); overflow-x:auto; gap:4px; padding-bottom:6px; }
+.preset-strip { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap:4px; padding-bottom:6px; }
+.preset-label { font-size:11px; line-height:1.25; text-align:center; padding-inline:2px; }
 .calculator-layout { align-items: start; }
 .media-numeric { max-width:640px; margin-inline:auto; }
 .seg button { transition: background-color 140ms ease, color 140ms ease, box-shadow 140ms ease; }

@@ -37,3 +37,6 @@ ci-results/
 .env
 .env.*
 !.env.example
+
+# Local sprint planning documents
+**/doocs/sprint/

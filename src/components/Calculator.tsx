@@ -9,12 +9,15 @@ type Mode = "solve" | "ratio" | "resize";
 type Side = "height" | "width";
 
 const PRESETS: [string, string, string][] = [
-  ["16", "9", "Widescreen video"],
-  ["9", "16", "Reels, Shorts, Stories"],
-  ["4", "3", "Classic / tablet"],
-  ["3", "2", "Photo, 35mm"],
-  ["1", "1", "Square post"],
-  ["3", "4", "Portrait photo"], ["4", "5", "Portrait post"], ["2", "3", "Portrait print"], ["16", "10", "Laptop display"],
+  ["1", "1", "Square"],
+  ["4", "3", "Classic"],
+  ["3", "4", "Portrait"],
+  ["3", "2", "Photo"],
+  ["2", "3", "Portrait photo"],
+  ["4", "5", "Social post"],
+  ["16", "9", "Widescreen"],
+  ["9", "16", "Vertical video"],
+  ["16", "10", "Laptop"],
 ];
 
 const ULTRAWIDE: [string, string, string][] = [
@@ -262,6 +265,7 @@ export function Calculator({ ultrawide = false, media }: { ultrawide?: boolean; 
                       className={`${ultrawide && i === 0 ? "col-span-2 mb-2 border-b" : ""} group flex flex-col items-center gap-0.5 rounded-lg border border-transparent py-1.5 text-muted-foreground transition-colors hover:border-border hover:text-foreground aria-pressed:border-primary/40 aria-pressed:bg-accent aria-pressed:text-accent-foreground`}>
                       <Thumb w={+w} h={+h} active={ultrawide ? ultraPreset === ULTRA_IDS[i] : activePreset === i} />
                       <span className="num text-xs font-medium">{ultrawide ? hint : `${w}:${h}`}</span>
+                      {!ultrawide && <span className="preset-label">{hint}</span>}
                       {ultrawide && <span className="text-xs">{i === 0 ? "Mathematical ratio · no source size" : `${w}:${h} exact ratio`}</span>}
                     </button>
                   ))}

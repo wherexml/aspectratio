@@ -21,3 +21,6 @@ Copy action uses theme foreground as its background and theme background as its 
 
 ## Browser identity
 `public/favicon.svg` reuses the header's exact overlapping horizontal/vertical frame geometry and brand #D96A1B. Its neutral outline follows browser light/dark appearance. `public/favicon.ico` contains 16/32/48/64px raster fallbacks. Root head links use a versioned URL to refresh the old Lovable icon cache; all routes inherit this identity. Validate both public assets and all route head links after deploying.
+
+## General ratio presets
+Use a three-column, three-row selector with a thumbnail, ratio and concise use label per button. Preserve the separate Ultrawide source layout. Behavior and acceptance: [component contract](src/components/README.md#general-preset-contract-2026-10-23).
