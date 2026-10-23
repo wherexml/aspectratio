@@ -13,7 +13,7 @@
 - [Contact](https://imageaspectratio.com/contact): Public GitHub issue tracker.
 - [Privacy](https://imageaspectratio.com/privacy)
 - [Terms](https://imageaspectratio.com/terms)
-- [Source code](https://github.com/wherexml/imageaspectratio.com): MIT license.
+- [Source code](https://github.com/wherexml/aspectratio): MIT license.
 
 ## Limitations
 Calculations use exact fractions; rounded pixel values are labeled. Fit/Fill are previews. The tool does not resize, crop, export or transcode files. Selected images are read locally in the browser. Open-source availability and indexability do not imply search engine ranking or endorsement.

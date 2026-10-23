@@ -1,100 +1,79 @@
-# Aspect Ratio Calculator
+<p align="center"><img src="public/favicon.svg" width="96" alt="Aspect Ratio Calculator icon"></p>
+<h1 align="center">Aspect Ratio Calculator</h1>
+<p align="center">Calculate dimensions. Keep the exact proportions.</p>
+<p align="center"><a href="https://imageaspectratio.com/">Open the calculator</a> · <a href="https://github.com/wherexml/aspectratio/issues">Report an issue</a> · <a href="LICENSE">MIT license</a></p>
 
-[Live site](https://imageaspectratio.com/) · [Report an issue](https://github.com/wherexml/imageaspectratio.com/issues) · [MIT license](LICENSE)
+A free, browser-based calculator for image, video and ultrawide dimensions. Calculate a missing width or height, reduce dimensions to an exact ratio, and preview how content fits a different frame.
 
-Calculate image, video and ultrawide proportions with exact fractions. Find a missing dimension, reduce a ratio, and preview Fit/Fill. This app does not export resized images or transcode video. Maintained by [wherexml](https://github.com/wherexml).
+## A closer look
+
+### Calculate without losing precision
+
+Switch between **Calculate size**, **Aspect ratio** and **Resize**. Choose one of nine visible presets, enter your dimensions and copy the result. Exact fractions remain available alongside rounded pixel values.
+
+### Preview an image in a different frame
+
+Open [Image aspect ratio](https://imageaspectratio.com/image-aspect-ratio), select a local image and inspect its dimensions. Compare **Fit** and **Fill** to see padding or the visible crop area. The selected image is read locally in your browser.
+
+### Compare video and ultrawide proportions
+
+[Video aspect ratio](https://imageaspectratio.com/video-aspect-ratio) compares horizontal and vertical frames using entered dimensions. The [Ultrawide calculator](https://imageaspectratio.com/ultrawide-aspect-ratio-calculator) distinguishes exact screen-resolution ratios from the familiar 21:9 category.
+
+## Features
+
+- **Exact ratio math:** BigInt fractions preserve the calculation; rounding is labeled.
+- **Nine common presets:** square, portrait, landscape, social post and vertical video shapes.
+- **Related workflows:** carry results between dimension, ratio and resize modes.
+- **Fit/Fill previews:** inspect framing before deciding how to prepare an image or video.
+- **Responsive interface:** shared navigation and system, light and dark themes.
+
+These tools calculate numbers and preview framing. They do **not** export resized or cropped images, transcode videos, or change display settings. Video calculations assume square pixels.
 
 ## Run locally
 
-```sh
-npm install
-npm run dev -- --host 127.0.0.1 --port 18786
-```
-
-`npm run build` uses the public production settings in `.env.production`. Local development defaults to noindex. Deployment is manual; no GitHub CI/CD workflow is enabled. See [deployment documentation](docs/deployment.md). Local verification artifacts referenced in historical notes are not included in this repository.
-
-## Project history and provenance
-
-### Lovable origin
-
-This project was built with [Lovable](https://lovable.dev).
-
-## Build with Lovable
-
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+Verified with **Bun 1.3.14** and **Node.js 22.23.1**. Dependencies are pinned in `bun.lock`.
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
-
-## Local preview (2026-10-16)
-
-```sh
+git clone https://github.com/wherexml/aspectratio.git
+cd aspectratio
 bun install --frozen-lockfile
-bun run dev --host 127.0.0.1 --port 18766 --strictPort
+npm run dev -- --host 127.0.0.1 --port 18786 --strictPort
 ```
 
-Preview: http://127.0.0.1:18766/
+Open [the local preview](http://127.0.0.1:18786/). Development is noindex by default. Do not put credentials in public `VITE_*` settings.
 
-Acceptance report: [verification/report.html](verification/report.html). Replay: `ego-browser nodejs < verification/browser-check.mjs`. 17 calculation checks passed; remaining UI checks interrupted by user control. `bun run build` passed. Product implementation unchanged.
+## Build from source
 
-## Theme and competitor review
+```sh
+bunx tsc --noEmit
+npm run build
+node scripts/prepare-worker.mjs
+npm run preview
+```
 
-Brand theme unified to `#D96A1B` in both light/dark modes; see [DESIGN.md](DESIGN.md). No calculation logic changed.
-Detailed comparison: [calculateaspectratio comparison](../reports/2026-10-16/canvas-competitor-comparison/report.html).
-Computed color verification: [theme-results.json](verification/theme-results.json).
+The built Worker runs locally at [127.0.0.1:18767](http://127.0.0.1:18767/). Production builds use `.env.production`, including the public canonical domain and indexability settings. Run the HTTP acceptance checks in another terminal:
 
-## Ultrawide local preview
+```sh
+python3 scripts/verify-http.py http://127.0.0.1:18767 https://imageaspectratio.com indexable
+```
 
-Open http://127.0.0.1:18766/ultrawide-aspect-ratio-calculator .
-Select a real screen resolution (exact reduced ratio) or strict 21:9, choose the known dimension, and scale. This changes numbers only, not display settings or files.
-Boundary behavior, presets and acceptance commands are documented in [src/routes/README.md](src/routes/README.md).
+The application uses React, TypeScript, TanStack Start and Tailwind CSS, with Cloudflare Workers SSR and Static Assets. Deployment is manual; pushing to GitHub does not publish the site. See [deployment and rollback](docs/deployment.md) and [source reproduction](docs/release-reproduction.md).
 
-Latest UI refinement: homepage remains the main entry, with linked logo and ultrawide breadcrumb. Source presets show true ratios, Use original size restores the selected resolution, and results display complete dimensions. Chrome passed 21 focused checks; evidence: `verification/refinement-results.json`.
+## Privacy and scope
 
-Latest precision refinement (2026-10-17): concise approximate canvas labels, collapsed exact details, and dedicated ultrawide examples. See [Chrome acceptance and replay steps](verification/precision-report.html).
+Local image selection is processed in the browser. The application does not upload selected image files for its preview. Hosting requests are subject to the live site's [Privacy](https://imageaspectratio.com/privacy) and [Terms](https://imageaspectratio.com/terms) pages. Avoid including private images, credentials or account information when reporting an issue.
 
-Familiar ratio hints: custom shapes close to a standard ratio now show `Near 3:4`, with exact values in precision detail. Chrome checks: `verification/familiar-results.json`; screenshot: `verification/familiar-ratio.png`.
+## Project documentation
 
-## Current local version — 2026-10-17
+- [Component workflows](src/components/README.md)
+- [Routes and SEO contracts](src/routes/README.md)
+- [Design principles](DESIGN.md)
+- [Contributor instructions](AGENTS.md)
 
-Home, Image, Video and Ultrawide are connected by shared navigation. The general calculator adds Resize, exact ratio/result transfer, and nine common presets. Image reads local files and previews fit/crop; Video compares horizontal and vertical screens. Neither exports edited files.
+New content, documentation, code comments and GitHub records use English. Older documents are being updated incrementally. Historical verification paths refer to local evidence and are not required to build a checkout.
 
-Removed 420 ms geometry interpolation and duplicate drag updates. Chrome and in-app browser switching measurements are recorded with the browser acceptance report below; a local sample is not a guarantee for every device.
+## Project status
 
-[Current acceptance and repeat steps](verification/workflows-report.html) · [Component contracts](src/components/README.md).
+Maintained by [wherexml](https://github.com/wherexml). Originally exported from [Lovable](https://lovable.dev); provenance is recorded in `LOCAL-EXPORT.json`. The repository remains connected to Lovable, so published Git history must not be rewritten.
 
-When adding new component files, restart Vite if newly introduced Tailwind utilities fail to appear. This occurred during this iteration and was corrected before final desktop/mobile acceptance.
-
-Latest local stability update: Image/Video now have task-specific first screens; generic numeric tools are collapsed below. Stable canvas/results and isolated Resize targets verified on desktop and 390px mobile. See [verification/stability-fix/report.html](verification/stability-fix/report.html).
-
-## SEO workflow and current baseline
-
-[SEO 工作入口](../README.md) · [验收与复盘清单](../SEO验收与复盘清单.md) · [当前页面表与实验简报](../reports/2026-10-16/first-seo-experiment/首个SEO实验执行简报.md)。2026-10-17 文档核对：四页仍为 noindex；canonical、正式 sitemap、About/Privacy 和生产验证列为后续事项。本次文档整合没有执行新的浏览器测试或部署。
-
-## Local SEO infrastructure
-Copy `.env.example` to `.env.local` only when configuring a confirmed site origin. Leave `VITE_SITE_URL` blank and `VITE_SITE_INDEXABLE=false` for the current preview. Settings are public build-time values, not secrets. Run `bun run build`, then `bun run preview` for the built Cloudflare Worker at http://127.0.0.1:18767 (local mode, no deployment). The normal development site remains on18766.
-
-`/sitemap.xml` and `/robots.txt` now return200. The preview sitemap intentionally has no URL entries because all pages remain noindex. Domain configuration alone does not turn indexing on. See `src/routes/README.md` for canonical, redirects and release requirements.
-
-## Deployment
-
-正式站点：[imageaspectratio.com](https://imageaspectratio.com)。Cloudflare Workers SSR 手动发布，CI/CD 保持移除；生产开放索引，开发默认 noindex。www 与旧 workers.dev 的页面永久跳转到正式主域。当前 8 个页面与回滚流程见 [部署说明](docs/deployment.md)，本次实际验收见 `verification/domain-release/README.md`。
+The public site is available at **imageaspectratio.com**. Search Console ownership and sitemap submission are configured; indexing requests do not guarantee inclusion or ranking. [Report an issue](https://github.com/wherexml/aspectratio/issues) with the page, input dimensions, expected result and steps to reproduce.
