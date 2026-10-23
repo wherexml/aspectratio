@@ -8,7 +8,7 @@
 
 ## 保留的部署约束
 
-- 仓库：https://github.com/wherexml/aspect-ratio-canvas ，分支 `main`。
+- 仓库：https://github.com/wherexml/imageaspectratio.com ，分支 `main`。
 - Worker：`aspect-ratio-canvas`；地址 https://aspect-ratio-canvas.geekmooc.workers.dev 。
 - 构建目标：TanStack Start SSR + Cloudflare Workers Static Assets；部署入口为 `.output/server/wrangler.json`，不能仅上传静态目录。
 - `scripts/prepare-worker.mjs` 固定独立 Worker 名称、账号和 compatibility date，避免覆盖其他服务。
