@@ -80,4 +80,4 @@ Copy `.env.example` to `.env.local` only when configuring a confirmed site origi
 
 ## Deployment
 
-Cloudflare Workers SSR 部署和专用 `ubuntu-m3ultra` CI 见 [部署说明](docs/deployment.md)。当前保留 noindex，自定义域名待配置。
+Cloudflare Workers SSR 部署边界见 [部署说明](docs/deployment.md)。CI/CD 已移除，push 不再自动部署；当前保留 noindex，自定义域名待配置。
